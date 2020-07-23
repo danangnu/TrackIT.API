@@ -53,7 +53,7 @@ namespace TrackIT.API.Models
         private async Task<List<tiftcand>> ReadAllAsync(DbDataReader reader)
         {
             DateTime? sdate = new DateTime();
-            sdate = Convert.ToDateTime("2000-01-01T00:00:00");
+            sdate = Convert.ToDateTime("1971-01-01T00:00:00");
             var posts = new List<tiftcand>();
             using (reader)
             {
