@@ -46,7 +46,7 @@ namespace TrackIT.API.Models
         {
             System.Diagnostics.Debug.WriteLine("hello world");
             using var cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = @"SELECT id,dbcandno,fileName,fullPath,reportStatus,IFNULL(reportDesc, 'NULL') As reportDesc,status_email FROM ti_reportdocument ORDER BY Id DESC LIMIT 10;";
+            cmd.CommandText = @"SELECT id,dbcandno,fileName,fullPath,reportStatus,IFNULL(reportDesc, 'NULL') As reportDesc,created_at,status_email,updated_at,filesize,serverName,lastmodified FROM ti_reportdocument ORDER BY Id DESC LIMIT 10;";
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
