@@ -23,14 +23,14 @@ namespace TrackIT.API.Controllers
         }
 
         // GET api/blog/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(int Id)
+        [HttpGet("{id}/{ids}/{days}")]
+        public async Task<IActionResult> GetOne(int Id, int Ids, int days)
         {
             await Db.Connection.OpenAsync();
             var query = new ftcandidatequery(Db);
-            var result = await query.FindOneAsync(Id);
-            if (result is null)
-                return new NotFoundResult();
+            var result = await query.FindListAsync(Id,Ids,days);
+            //if (result is null)
+            //    return new NotFoundResult();
             return new OkObjectResult(result);
         }
 

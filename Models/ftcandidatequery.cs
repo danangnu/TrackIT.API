@@ -29,6 +29,31 @@ namespace TrackIT.API.Models
             return result.Count > 0 ? result[0] : null;
         }
 
+        public async Task<List<ftcandidate>> FindListAsync(int Id, int Ids, int days)
+        {    
+            using var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"SELECT ftCandidate.dbCandno, ti_ftcandidate.lastScanning FROM ftCandidate LEFT JOIN `ti_ftcandidate` ON ftcandidate.dbcandno = `ti_ftcandidate`.`dbcandno` WHERE ftcandidate.dbcandno >= @Id AND ftcandidate.dbcandno <= @Ids AND (ti_ftcandidate.lastScanning IS NULL OR ti_ftcandidate.`lastScanning` < DATE_SUB(CURDATE(), INTERVAL @days DAY)) ORDER BY dbcandavaildate DESC, dbCandno DESC;";
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@Id",
+                DbType = DbType.Int32,
+                Value = Id,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@Ids",
+                DbType = DbType.Int32,
+                Value = Ids,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@days",
+                DbType = DbType.Int32,
+                Value = days,
+            });
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
         public async Task<List<ftcandidate>> LatestPostsAsync()
         {
             using var cmd = Db.Connection.CreateCommand();
