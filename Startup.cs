@@ -25,8 +25,8 @@ namespace TrackIT.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<AppDb>(_ => new AppDb(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<AppDb2>(_ => new AppDb2(Configuration.GetConnectionString("DefaultConnection2")));
+            services.AddScoped<AppDb>(_ => new AppDb(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<AppDb2>(_ => new AppDb2(Configuration.GetConnectionString("DefaultConnection2")));
             services.AddControllers();
             services.AddCors();
         }
