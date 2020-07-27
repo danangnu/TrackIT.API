@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -60,6 +61,8 @@ namespace TrackIT.API.Models
 
         private async Task<List<ftcand>> ReadAllAsync(DbDataReader reader)
         {
+            DateTime? sdate = new DateTime();
+            sdate = Convert.ToDateTime("1971-01-01T00:00:00");
             var posts = new List<ftcand>();
             using (reader)
             {
@@ -76,9 +79,9 @@ namespace TrackIT.API.Models
                         created_at = reader.GetDateTime(6),
                         status_email = reader.GetInt16(7),
                         updated_at = reader.GetDateTime(8),
-                        filesize = reader.GetInt32(9),
-                        serverName = reader.GetString(10),
-                        lastmodified = reader.GetDateTime(11),
+                        filesize = (reader.IsDBNull(9) ? 0 : reader.GetDecimal(9)),
+                        serverName = (reader.IsDBNull(10) ? null : reader.GetString(10)),
+                        lastmodified = (DateTime)(reader.IsDBNull(11) ? sdate : reader.GetDateTime(11)),
                     };
                     posts.Add(post);
                 }
