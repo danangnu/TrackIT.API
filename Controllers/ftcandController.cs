@@ -8,7 +8,7 @@ namespace TrackIT.API.Controllers
     [Route("api/[controller]")]
     public class ftcandController : ControllerBase
     {
-        public ftcandController(AppDb db)
+        public ftcandController(AppDb2 db)
         {
             Db = db;
         }
@@ -90,6 +90,6 @@ namespace TrackIT.API.Controllers
             return new OkResult();
         }
 
-        public AppDb Db { get; }
+        public AppDb2 Db { get; }
     }
 }

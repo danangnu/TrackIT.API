@@ -8,9 +8,9 @@ namespace TrackIT.API.Models
 {
     public class ftcandquery
     {
-        public AppDb Db { get; }
+        public AppDb2 Db { get; }
 
-        public ftcandquery(AppDb db)
+        public ftcandquery(AppDb2 db)
         {
             Db = db;
         }

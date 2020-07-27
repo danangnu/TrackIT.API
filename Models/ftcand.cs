@@ -20,13 +20,13 @@ namespace TrackIT.API.Models
         public string serverName { get; set; }
         public DateTime lastmodified { get; set; }
 
-        internal AppDb Db { get; set; }
+        internal AppDb2 Db { get; set; }
 
         public ftcand()
         {
         }
 
-        internal ftcand(AppDb db)
+        internal ftcand(AppDb2 db)
         {
             Db = db;
         }

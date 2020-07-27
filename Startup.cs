@@ -26,6 +26,7 @@ namespace TrackIT.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<AppDb>(_ => new AppDb(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<AppDb2>(_ => new AppDb2(Configuration.GetConnectionString("DefaultConnection2")));
             services.AddControllers();
             services.AddCors();
         }
