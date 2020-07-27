@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -63,6 +64,8 @@ namespace TrackIT.API.Models
 
         private async Task<List<ftcandidate>> ReadAllAsync(DbDataReader reader)
         {
+            DateTime? sdate = new DateTime();
+            sdate = Convert.ToDateTime("1971-01-01T00:00:00");
             var posts = new List<ftcandidate>();
             using (reader)
             {
@@ -71,6 +74,7 @@ namespace TrackIT.API.Models
                     var post = new ftcandidate(Db)
                     {
                         dbcandno = reader.GetInt32(0),
+                        lastScanning = (DateTime)(reader.IsDBNull(1) ? sdate : reader.GetDateTime(1)),
                     };
                     posts.Add(post);
                 }
