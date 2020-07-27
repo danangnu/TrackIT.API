@@ -55,6 +55,68 @@ namespace TrackIT.API.Models
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
+        public async Task<List<ftcandidate>> FindAvailAsync(string startdate, string enddate, int days)
+        {    
+            using var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"SELECT ftCandidate.dbCandno,ti_ftcandidate.lastScanning FROM ftCandidate LEFT JOIN `ti_ftcandidate` ON ftcandidate.dbcandno = `ti_ftcandidate`.`dbcandno` WHERE ftCandidate.dbcandavaildate >= @startdate AND ftCandidate.dbcandavaildate <= @enddate AND (ti_ftcandidate.lastScanning IS NULL OR (ti_ftcandidate.`lastScanning` < DATE_SUB(CURDATE(), INTERVAL @days DAY))) ORDER BY dbcandavaildate DESC, dbCandno DESC;";
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@startdate",
+                DbType = DbType.String,
+                Value = startdate,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@enddate",
+                DbType = DbType.String,
+                Value = enddate,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@days",
+                DbType = DbType.Int32,
+                Value = days,
+            });
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        public async Task<List<ftcandidate>> FindAvail2Async(int Id, int Ids, string startdate, string enddate, int days)
+        {    
+            using var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"SELECT ftCandidate.dbCandno,ti_ftcandidate.lastScanning FROM ftCandidate LEFT JOIN `ti_ftcandidate` ON ftcandidate.dbcandno = `ti_ftcandidate`.`dbcandno` WHERE ftcandidate.dbcandno >= @Id AND ftcandidate.dbcandno <= @Ids AND (ftCandidate.dbcandavaildate >= @startdate AND ftCandidate.dbcandavaildate <= @enddate) AND (ti_ftcandidate.lastScanning IS NULL OR (ti_ftcandidate.`lastScanning` < DATE_SUB(CURDATE(), INTERVAL @days DAY))) ORDER BY dbcandavaildate DESC, dbCandno DESC;";
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@Id",
+                DbType = DbType.Int32,
+                Value = Id,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@Ids",
+                DbType = DbType.Int32,
+                Value = Ids,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@startdate",
+                DbType = DbType.String,
+                Value = startdate,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@enddate",
+                DbType = DbType.String,
+                Value = enddate,
+            });
+            cmd.Parameters.Add(new MySqlParameter
+            {
+                ParameterName = "@days",
+                DbType = DbType.Int32,
+                Value = days,
+            });
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
         public async Task<List<ftcandidate>> LatestPostsAsync()
         {
             using var cmd = Db.Connection.CreateCommand();
