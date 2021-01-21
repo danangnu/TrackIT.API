@@ -12,16 +12,6 @@ namespace TrackIT.API.Controllers
             Db = db;
         }
 
-        // GET api/blog
-        [HttpGet]
-        public async Task<IActionResult> GetMaster()
-        {
-            await Db.Connection.OpenAsync();
-            var query = new ftkeywordquery(Db);
-            var result = await query.MasterKeywordAsync();
-            return new OkObjectResult(result);
-        }
-
         // GET api/ticandskills/5
         [HttpGet("{id}/{skilltype}/{skillitem}")]
         public async Task<IActionResult> GetOne(int Id,string skilltype, string skillitem)

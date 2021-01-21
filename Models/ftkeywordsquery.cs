@@ -7,11 +7,11 @@ using MySqlConnector;
 
 namespace TrackIT.API.Models
 {
-    public class ftkeywordquery
+    public class ftkeywordsquery
     {
         public AppDb Db { get; }
 
-        public ftkeywordquery(AppDb db)
+        public ftkeywordsquery(AppDb db)
         {
             Db = db;
         }

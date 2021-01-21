@@ -18,7 +18,7 @@ namespace TrackIT.API.Controllers
         {
             await Db.Connection.OpenAsync();
             var query = new ftkeywordquery(Db);
-            var result = await query.MasterKeywordAsync();
+            var result = await query.MasterKeywordsAsync();
             return new OkObjectResult(result);
         }
 

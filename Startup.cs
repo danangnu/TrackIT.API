@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TrackIT.API.Data;
 
 namespace TrackIT.API
 {
@@ -25,6 +27,10 @@ namespace TrackIT.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<DataContext>(x => 
+            //{
+            //    x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+            //});
             services.AddScoped<AppDb>(_ => new AppDb(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<AppDb2>(_ => new AppDb2(Configuration.GetConnectionString("DefaultConnection2")));
             services.AddControllers();

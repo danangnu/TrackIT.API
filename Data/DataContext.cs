@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using TrackIT.API.Entities;
 
 namespace TrackIT.API.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
-        public DbSet<AppDb> Users { get; set; }
+        public DbSet<AppStaff> ftstaff { get; set; }
     }
 }

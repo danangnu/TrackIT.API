@@ -127,7 +127,7 @@ namespace TrackIT.API.Models
         private async Task<List<ftcandidates>> ReadAllAsync(DbDataReader reader)
         {
             DateTime? sdate = new DateTime();
-            sdate = Convert.ToDateTime("1971-01-01T00:00:00");
+            sdate = Convert.ToDateTime("1900-01-01T00:00:00");
             var posts = new List<ftcandidates>();
             using (reader)
             {
@@ -138,7 +138,7 @@ namespace TrackIT.API.Models
                         dbcandno = reader.GetInt32(0),
                         dbcandnames = reader.GetString(1),
                         dbcandsurname = reader.GetString(2),
-                        dbcanddob = (DateTime)(reader.IsDBNull(1) ? sdate : reader.GetDateTime(3)),
+                        dbcanddob = (DateTime)(reader.IsDBNull(3) ? sdate : reader.GetDateTime(3)),
                         dbcandexpsalary = reader.GetString(4),
                     };
                     posts.Add(post);
